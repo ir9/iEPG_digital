@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="mAgicTvPlugIn.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DefaultArea" Type="System.String" Scope="User">
+      <Value Profile="(Default)">東京</Value>
+    </Setting>
+    <Setting Name="DefaultPlatform" Type="System.String" Scope="User">
+      <Value Profile="(Default)">すべての番組</Value>
+    </Setting>
+    <Setting Name="DefaultCategory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">選択なし</Value>
+    </Setting>
+    <Setting Name="DebugOutputLog" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

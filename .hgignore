@@ -1,0 +1,13 @@
+syntax: regexp
+^_UpgradeReport_Files*
+^Backup/*
+/[Dd]ebug/
+/[Rr]elease/
+^[Dd]ebug/
+^[Rr]elease/
+syntax: glob
+UpgradeLog.XML
+*.suo
+*.user
+magicanime_exe/*
+*FileListAbsolute.txt

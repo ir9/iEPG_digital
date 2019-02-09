@@ -1,0 +1,1115 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>「Fairy tail」を含む番組 - Gガイド.テレビ王国
+</title>
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+      <!-- 検索結果 -->
+    <meta name="keywords" content="Fairy tail,検索,iEPG,テレビ,番組表,テレビ番組表" />
+    <meta name="description" content="iEPG対応機器をお持ちなら、番組の検索結果から簡単録画予約！録画予約もGガイド.テレビ王国で！" />
+  <link rel="alternate" type="application/atom+xml" title="「Fairy tail」を含む番組 - Gガイド.テレビ王国
+" href="/rss/schedulesBySearch.action?stationPlatformId=0&amp;condition.keyword=Fairy+tail&amp;submit=%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD&amp;stationAreaId=23" />
+  <link rel="stylesheet" type="text/css" href="/tv/digital/css/basic.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="/tv/digital/css/layout2column.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="/tv/digital/css/mysetting.css" media="all" />
+  <script type="text/javascript" src="/tv/digital/js/prototype.js"></script>
+  <script type="text/javascript" src="/tv/digital/js/multiIepg.js"></script>
+  <script type="text/javascript" src="/tv/digital/js/rounded_corners_lite.inc.js"></script>
+  <script type="text/javascript" src="/tv/digital/js/rounded_set.js"></script>
+</head>
+<body id="result" class="chart">
+<div id="ad-balloon-container" style="display: none; z-index:999;">
+</div>
+<script type="text/javascript"><!--
+var windowCloseTimeoutId = '';
+var WINDOW_CLOSE_SEC = 3000;
+var CHART_WINDOW_CLOSE_SEC= 3000;
+var myScrollTop = -1;
+CHART_WINDOW_CLOSE_SEC = 10000;
+WINDOW_CLOSE_SEC = 60000;
+var RETRY_MAX=3;
+var retry = RETRY_MAX;
+var balloon = $("ad-balloon-container");
+function hiddenSelect() {
+  var elems = document.getElementsByTagName("select");
+  for (i = 0; i < elems.length; i++) {
+    elems[i].style.display = "none";
+  }
+}
+function displaySelect() {
+  var elems = document.getElementsByTagName("select");
+  for (i = 0; i < elems.length; i++) {
+    elems[i].style.display = "";
+  }
+}
+function openBalloon(actionName, id) {
+  var timeoutid = '';
+  closeBalloon();
+  balloon.style.display = "none";
+  var params = 'id=' + id;
+  var ajaxUpdater = new Ajax.Updater(
+    { success: 'ad-balloon-container' },
+      actionName,
+    {
+      method: 'get',
+      parameters: params,
+      onSuccess: function(request) {
+        if (request.responseText.indexOf('div') == -1) {
+          ajaxUpdater.options.onComplete = undefined;
+        } else{
+            retry=RETRY_MAX;
+            resizeBalloon(id);
+            windowCloseTimeoutId = window.setTimeout("closeBalloon()", WINDOW_CLOSE_SEC);
+        }
+      },
+      onException: function (request) {
+        if ((timeoutid == '' || timeoutid == 'undefinde') && retry > 0) {
+          timeoutid = timeoutSetting(actionName, id);
+          retry--;
+        }
+      },
+      evalScripts: true,
+      onFailure: handleBalloonError(),
+      requestHeaders: ['If-Modified-Since','Wed, 15 Nov 1995 00:00:00 GMT']
+    }
+  );
+  Event.observe(window, 'scroll', function(e) {
+  var tmpScrollTop = document.body.scrollTop || document.documentElement.scrollTop -2;
+  if (myScrollTop - tmpScrollTop < -10 || myScrollTop - tmpScrollTop > +10) {
+    closeBalloon();
+  }
+  myScrollTop = tmpScrollTop;
+});
+}
+
+function openDailyBalloon(actionName, head) {
+  var timeoutid = '';
+  closeBalloon();
+  balloon.style.display = "none";
+  var params = 'head=' + head;
+  var ajaxUpdater = new Ajax.Updater(
+    { success: 'ad-balloon-container' },
+      actionName,
+    {
+      method: 'get',
+      parameters: params,
+      onComplete: function(request) {
+        if (request.responseText.indexOf('div') == -1) {
+          ajaxUpdater.options.onComplete = undefined;
+        } else{
+            retry=RETRY_MAX;
+            resizeBalloon(null);
+            windowCloseTimeoutId = window.setTimeout("closeBalloon()", CHART_WINDOW_CLOSE_SEC);
+        }
+      },
+      onException: function (request) {
+        if ((timeoutid == '' || timeoutid == 'undefinde') && retry > 0) {
+          timeoutid = window.setTimeout("openDailyBalloon('"+actionName+"', '"+head+"')", 1000);
+          retry--;
+        }
+      },
+      evalScripts: true,
+      onFailure: handleBalloonError(),
+      requestHeaders: ['If-Modified-Since','Wed, 15 Nov 1995 00:00:00 GMT']
+    }
+  );
+  Event.stopObserving(window, 'scroll', function(e) {
+  var tmpScrollTop = document.body.scrollTop || document.documentElement.scrollTop -2;
+  if (myScrollTop - tmpScrollTop < -10 || myScrollTop - tmpScrollTop > +10) {
+    closeBalloon();
+  }
+  myScrollTop = tmpScrollTop;
+  });
+}
+
+function timeoutSetting(actionName, id) {
+  return window.setTimeout("openBalloon('"+actionName+"', '"+id+"')", 1000);
+}
+function openIepgBalloon(id) {
+    openBalloon('/iepgBalloon.action', id);
+}
+function openMultiIepgBalloon(myForm) {
+    var myId = '';
+    for (var i = 0; i < myForm.elements.length; i++) {
+      if (myForm.elements[i].name == 'ids' && myForm.elements[i].checked) {
+        myId = myForm.elements[i].value;
+        break;
+      }
+    }
+    openBalloon('/iepgBalloon.action', myId);
+}
+function openClipBalloon(id) {
+  openBalloon('/m/clipBalloon.action', id);
+}
+function resizeBalloon(id) {
+  var tmpScrollTop = document.body.scrollTop || document.documentElement.scrollTop -2;
+  myScrollTop = tmpScrollTop;
+  var extraMargin = 0;
+  balloon.style.display = "";
+  balloon.style.zIndex = 999999;
+  balloon.style.position = "absolute";
+  var x = 5;
+  var y = 5 + myScrollTop - extraMargin;
+  balloon.style.top = y + "px";
+  balloon.style.left = x + "px";
+  if (navigator.userAgent.indexOf("Mozilla/4.0 (compatible; MSIE 6.0") == 0 ||
+      navigator.userAgent.indexOf("MSIE 6.0") == 0) {
+    hiddenSelect();
+  }
+}
+function handleBalloonError() {
+  return function(request) {
+  };
+}
+function closeBalloon() {
+  balloon.style.display = "none";
+  displaySelect();
+  if ( windowCloseTimeoutId != 'undefinde' && windowCloseTimeoutId != '') {
+    window.clearTimeout(windowCloseTimeoutId);
+  }
+}
+Event.observe(window, 'load', function(e) {
+  var nodes = document.getElementsByName("iepg-button");
+  for(var i=0; i<nodes.length; i++){
+    var node = $(nodes[i].id);
+    Event.observe(node, 'click', function(e) {
+      var id = Event.element(e).id.substring(5);
+      window.setTimeout("openIepgBalloon('"+id+"')", 850);
+    });
+  }
+  var clipKey = '';
+  if (clipKey != '') {
+    openClipBalloon('');
+  }
+});
+Event.observe(window, 'load', function(e) {
+});
+Event.observe(balloon, 'click', function(e) {
+  var sourceTagName = Event.element(e).tagName;
+  if (sourceTagName != "A" && sourceTagName != "INPUT" ) {
+    Event.stop(e);
+  }
+});
+Event.observe(window.document, 'click', closeBalloon);
+
+--></script>
+
+<div class="commonHeader">
+  <div class="innerBox">
+    <p class="copy">
+    <!-- ARIB 地域 -->
+<!--ヘッダテキスト広告-->
+<script language="JavaScript">
+ord=Math.random()*10000000000000000;
+document.write('<script language="JavaScript" src="http://ad.jp.doubleclick.net/adj/tv.scn.tx_header_2/;sz=330x16;ord=' + ord + '?" charset="Shift_JIS"><\/script>');</script>
+<noscript><a href="http://ad.jp.doubleclick.net/jump/tv.scn.tx_header_2/;sz=330x16;ord=123456788?" target="_blank"><img src="http://ad.jp.doubleclick.net/ad/tv.scn.tx_header_2/;sz=330x16;ord=123456788?" width="330" height="16" border="0" alt="" /></a></noscript>
+<!--ヘッダテキスト広告-->
+<!-- ARIB 地域 -->
+    </p>
+    <p class="headerNavi"><a href="http://www.so-net.ne.jp/tv/service/map.html">サイトマップ</a><span>-</span><a href="http://www.so-net.ne.jp/tv/help/gtv/">ヘルプ</a></p>
+    <p class="areaNavi">ご利用の地域 ： <strong>東京</strong></p>
+  </div>
+  <!--commonHeader-->
+</div>
+<div class="header">
+  <div class="innerBox">
+    <p class="tvKingdom"><a href="/"><img src="/tv/digital/img/logo/logo_tvoukoku.gif"  alt="テレビ番組表のGガイド.テレビ王国"/></a></p>
+    <div class="globalNav">
+      <ul class="selectMenu">
+        <li class="globalNavTop"><a href="/">トップ</a></li>
+        <li class="globalNavChart"><a href="/chart/">番組表</a></li>
+        <li class="globalNavRecommend"><a href="/ichioshi/">イチオシ</a></li>
+        <li class="globalNavRanking"><a href="/ranking/">ランキング</a></li>
+        <li class="globalNavDrama"><a href="/drama/">ドラマ</a></li>
+        <li class="globalNavAnime"><a href="/anime/">アニメ</a></li>
+        <li class="globalNavGuide"><a href="/guide/">ガイド/コラム</a></li>
+        <li class="globalNavMember"><a href="/m/presentationSettingOpened.action">メンバーサービス</a></li>
+      </ul>
+      <!--globalNav-->
+    </div>
+    <div class="subNav subNavOn">
+      <ul>
+        <li><a class="linkArrowA" href="/chart/">地上波</a></li>
+        <li><a class="linkArrowA" href="/chart/bs1.action">BSデジ(1)</a></li>
+        <li><a class="linkArrowA" href="/chart/bs2.action">BSデジ(2)</a></li>
+        <li><a class="linkArrowA" href="/chart/cs/">スカパー！</a></li>
+        <li><a class="linkArrowA" href="/chart/cs110/">スカパー！ｅ２</a></li>
+        <li><a class="linkArrowA" href="/search/">番組を探す</a></li>
+      </ul>
+    </div>
+    <div class="weeklyChart pdT5">
+      <h2>週間テレビ番組表</h2>
+      <ul>
+        <li><a href="
+            /chart/?head=201007031509
+        ">7/3<span class="saturday">SAT</span></a></li>
+        <li><a href="
+            /chart/?head=201007041509
+        ">7/4<span class="sunday">SUN</span></a></li>
+        <li><a href="
+            /chart/?head=201007051509
+        ">7/5<span class="monday">MON</span></a></li>
+        <li><a href="
+            /chart/?head=201007061509
+        ">7/6<span class="tuesday">TUE</span></a></li>
+        <li><a href="
+            /chart/?head=201007071509
+        ">7/7<span class="wednesday">WED</span></a></li>
+        <li><a href="
+            /chart/?head=201007081509
+        ">7/8<span class="thursday">THU</span></a></li>
+        <li><a href="
+            /chart/?head=201007091509
+        ">7/9<span class="friday">FRI</span></a></li>
+        <li><a href="
+            /chart/?head=201007101509
+        ">7/10<span class="saturday">SAT</span></a></li>
+      </ul>
+      <!--weeklyChart-->
+    </div>
+    <div class="areaInfornmation">
+      <form method="GET" action="/stationAreaSettingCompleted.action" name="changeStationAreaForm">
+      <h2>
+        <input type="hidden" name="origin" value="/schedulesBySearch.action?stationPlatformId=0&condition.keyword=Fairy%20tail&submit=%8C%9F%8D%F5">
+        <select name="stationAreaId" id="area-selector" onchange="this.form.submit();">
+          <option value="10" >北海道（札幌）</option>
+          <option value="110" >CATV北海道（札幌）エリア</option>
+          <option value="11" >北海道（函館）</option>
+          <option value="12" >北海道（旭川）</option>
+          <option value="13" >北海道（帯広）</option>
+          <option value="14" >北海道（釧路）</option>
+          <option value="15" >北海道（北見）</option>
+          <option value="16" >北海道（室蘭）</option>
+          <option value="22" >青森</option>
+          <option value="20" >岩手</option>
+          <option value="17" >宮城</option>
+          <option value="117" >CATV宮城エリア</option>
+          <option value="18" >秋田</option>
+          <option value="19" >山形</option>
+          <option value="21" >福島</option>
+          <option value="26" >茨城</option>
+          <option value="126" >CATV茨城エリア</option>
+          <option value="28" >栃木</option>
+          <option value="25" >群馬</option>
+          <option value="125" >CATV群馬エリア</option>
+          <option value="29" >埼玉</option>
+          <option value="129" >CATV埼玉エリア</option>
+          <option value="27" >千葉</option>
+          <option value="127" >CATV千葉エリア</option>
+          <option value="23" selected="selected">東京</option>
+          <option value="123" >CATV東京エリア</option>
+          <option value="24" >神奈川</option>
+          <option value="124" >CATV神奈川エリア</option>
+          <option value="31" >新潟</option>
+          <option value="32" >山梨</option>
+          <option value="30" >長野</option>
+          <option value="37" >富山</option>
+          <option value="34" >石川</option>
+          <option value="36" >福井</option>
+          <option value="39" >岐阜</option>
+          <option value="35" >静岡</option>
+          <option value="33" >愛知</option>
+          <option value="38" >三重</option>
+          <option value="45" >滋賀</option>
+          <option value="41" >京都</option>
+          <option value="141" >CATV京都エリア</option>
+          <option value="40" >大阪</option>
+          <option value="140" >CATV大阪エリア</option>
+          <option value="42" >兵庫</option>
+          <option value="142" >CATV兵庫エリア</option>
+          <option value="44" >奈良</option>
+          <option value="43" >和歌山</option>
+          <option value="143" >CATV和歌山エリア</option>
+          <option value="49" >鳥取</option>
+          <option value="48" >島根</option>
+          <option value="47" >岡山</option>
+          <option value="46" >広島</option>
+          <option value="50" >山口</option>
+          <option value="150" >CATV山口エリア</option>
+          <option value="53" >徳島</option>
+          <option value="52" >香川</option>
+          <option value="51" >愛媛</option>
+          <option value="54" >高知</option>
+          <option value="55" >福岡</option>
+          <option value="155" >CATV福岡エリア</option>
+          <option value="61" >佐賀</option>
+          <option value="57" >長崎</option>
+          <option value="56" >熊本</option>
+          <option value="60" >大分</option>
+          <option value="59" >宮崎</option>
+          <option value="58" >鹿児島</option>
+          <option value="62" >沖縄</option>
+        </select>
+      </h2>
+      </form>
+      <ul>
+          <li><span class="icon"><img src="/tv/digital/img/weather/daytime/t_item_w_kumori2.gif" alt="くもり時々雨" title="くもり時々雨"/></span>30&#8451;</li>
+          <li><span class="icon"><img src="/tv/digital/img/weather/daytime/t_item_w_kumori2.gif" alt="くもり時々雨" title="くもり時々雨"/></span>29&#8451;</li>
+          <li><span class="icon"><img src="/tv/digital/img/weather/daytime/t_item_w_kumori0.gif" alt="くもり" title="くもり"/></span>28&#8451;</li>
+          <li><span class="icon"><img src="/tv/digital/img/weather/daytime/t_item_w_kumori2.gif" alt="くもり時々雨" title="くもり時々雨"/></span>31&#8451;</li>
+          <li><span class="icon"><img src="/tv/digital/img/weather/daytime/t_item_w_kumori0.gif" alt="くもり" title="くもり"/></span>31&#8451;</li>
+          <li><span class="icon"><img src="/tv/digital/img/weather/daytime/t_item_w_kumori0.gif" alt="くもり" title="くもり"/></span>31&#8451;</li>
+          <li><span class="icon"><img src="/tv/digital/img/weather/daytime/t_item_w_kumori0.gif" alt="くもり" title="くもり"/></span>31&#8451;</li>
+          <li><span class="icon"><img src="/tv/digital/img/weather/daytime/t_item_w_kumori0.gif" alt="くもり" title="くもり"/></span>30&#8451;</li>
+      </ul>
+      <!--areaInfornmation-->
+      <!--innerBox-->
+    </div>
+  </div>
+  <!--header-->
+</div>
+<div class="headerMenu pdT5">
+  <div class="innerBox">
+    <table class="search">
+      <tr>
+        <td class="pdR5"><img src="/tv/digital/img/icon/icon_search.gif" alt="検索" /></td>
+        <form name="headerSearchForm" method="GET" action="/schedulesBySearch.action">
+        <td class="pdR5">
+<select name="stationPlatformId" id="stationPlatformId">
+    <option value="0" selected="selected">すべての番組</option>
+    <option value="1">地上波</option>
+    <option value="2">BSデジタル</option>
+    <option value="5">スカパー！ｅ２</option>
+    <option value="4">スカパー！</option>
+
+
+</select>
+        </td>
+        <td><input type="text" name="condition.keyword" value="Fairy tail" id="condition_keyword" class="searchWindow"/>
+</td>
+        <td><input type="submit" name="submit" value="検索" class="searchBtn"></td>
+        </form>
+      </tr>
+    </table>
+    <p class="detailSearch"><a class="linkArrowA" href="/search/">詳細検索</a></p>
+    <dl>
+      <dt>ようこそ<strong>ゲスト</strong>さん</dt>
+        <dd><a class="registration" href="http://www.so-net.ne.jp/tv/entry/">新規登録</a></dd>
+        <dd><a class="login" href="/m/loginFormRedirecting.action?origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5">ログイン</a></dd>
+
+    </dl>
+  </div><!--headerMenu-->
+</div>
+  <div class="topicPath">
+  <p class="alignR"><img src="/tv/digital/img/logo/logo_syndicatedgguide_s.gif" alt="Ｇガイド" /></p>
+  <ul>
+    <li><a href="/">トップ</a><span>&gt;</span></li>
+      <li><a href="/search/">番組を探す</a>&nbsp;&gt;</li>
+      <li class="current">検索結果一覧</li>
+  </ul>
+  </div>
+  <div class="container column2">
+    <div class="mainColumn pdR10">
+<!--スポンサードサーチ-->
+<div id="sponsoredSearch">
+<script type="text/javascript">
+var SSresult;
+</script>
+<script type="text/javascript">
+var serveUrl = encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+document.write('<scr' + 'ipt type="text/javascript" src="http://www.so-net.ne.jp/search/json/?Partner=sonet_jp_tvsearch_xml_search&Keywords=Fairy+tail&bolding=false&keywordCharEnc=utf8&outputCharEnc=utf8&maxCount=3&start=0&serveUrl=' + serveUrl + '&accountFilters=sonet_jp_tvsearch&urlFilters=sonet_jp_tvsearch&termFilters=sonet_jp_tvsearch"></scr' + 'ipt>');
+</script>
+<script type="text/javascript">
+function show() {
+  if (SSresult.Results.ResultSet) {
+    var result = SSresult.Results.ResultSet;
+    var html = new String;
+    html = '<div class="contBlockNB">';
+    for (var i = 0; i < result.Listing.length; i++) {
+      var obj = result.Listing[i];
+      html += '<table cellpadding="0" cellspacing="0" border="0" class="sponsorsLink by">';
+      html += '<tr>';
+      html += '<td>';
+      html += '<a href="' + obj.ClickUrl.text + '" target="_blank">';
+      html += '<span class="sponsor_title">'  + obj.title + '<span class="sponsor_url">'  + obj.siteHost + '</span></span>';
+      html += '<span class="sponsor_desc">'  + obj.description + '</span>';
+      html += '</a>'
+      html += '</td>';
+      html += '</tr>';
+      html += '</table>';
+    }
+    html += '<p class="pdT5 alignR f-xs"><a href="http://ov.yahoo.co.jp/service/srch/index.html?o=JP0521" target="_blank">スポンサーリンク</a></p></div>';
+    document.write(html);
+  }
+}
+if (SSresult)
+  show();
+</script>
+</div>
+<!--/スポンサードサーチ-->      <!--↓↓メインコンテンツここから↓↓-->
+<div class="contBlock">
+  <h1 class="basicContTitle">Gガイド．テレビ王国の検索結果</h1>
+  <div class="utileListResulte">
+    「Fairy tail」を含む番組
+    <ul class="alignR">
+      <li><a href="/search/" class="linkArrowA">詳細検索</a></li>
+      <li><a href="/rss/schedulesBySearch.action?stationPlatformId=0&amp;condition.keyword=Fairy+tail&amp;submit=%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD&amp;stationAreaId=23" class="rssArrw">RSS</a></li>
+    </ul>
+  </div><!--/utileListResulte-->
+  <div class="utileListContents">
+          <span class="chanelExp">番組説明：
+          表示｜<a href="/schedulesBySearch.action?stationPlatformId=0&amp;condition.keyword=Fairy+tail&amp;submit=%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD&amp;descriptive=false">非表示</a>
+      </span>
+      <select name="iepgTypeSelector" id="iepgTypeSelector" onchange="iepgSwitching(this);">
+        <option value="1" >iEPG</option>
+        <option value="0" selected>iEPGデジタル</option>
+        <option value="2" >iEPGワンセグ</option>
+      </select>
+    <span class="help"><a href="http://www.so-net.ne.jp/tv/help/gtv/howto/iepg/index.html#2" target="_blank" class="linkHelp">iEPG切り替えとは？</a></span>
+<script type="text/javascript"><!--
+  var eventActor = 'mouse';
+  var iepgSwitchingMessage = {};
+  var iepgSelector = $("iepgTypeSelector");
+  var currentSelectedIepgType;
+  if(iepgSelector != null) {
+    currentSelectedIepgType = iepgSelector.selectedIndex;
+  }
+  var iepgTypes = { 0:"digital", 1:"analog", 2:"oneseg" };
+  
+iepgSwitchingMessage.analog = "iEPGボタンをアナログ予約用に変更します。実際の放送は番組表と異なることがあります。よろしいですか？";
+iepgSwitchingMessage.digital = "「iEPGデジタル」をご利用いただくには、「iEPGデジタル」に対応したデジタルチューナー搭載PCまたはレコーダーが必要です。 \n\n※「iEPG」対応機器をご利用の方は「iEPG」を選択してください。対応機器についての詳細はヘルプページをご覧ください。";
+iepgSwitchingMessage.oneseg = "「iEPGワンセグ」をご利用いただくには、「iEPGワンセグ」に対応した VAIO モバイル TV が必要です。\n ※「iEPG」対応の外付けワンセグチューナー機器をご利用の方は「iEPG」を選択してください。対応機器についての詳細はヘルプページをご覧ください。\n\n実際の放送は番組表と異なることがあります。\n iEPGボタンをワンセグ予約用に変更します。よろしいですか？";
+  function iepgSwitching(iepgType) {
+    var key = iepgType.options[iepgType.selectedIndex].value;
+    var msg = iepgSwitchingMessage[iepgTypes[key]];
+    if (typeof(msg) == 'undefined' || msg == null || msg == "") {
+      return true;
+    } else {
+      if(confirm(msg)) {
+          var currentURL = document.URL
+          currentURL = currentURL.replace(/[&|?]iepgType=\d/, "");
+          if ( currentURL.indexOf("?") > 0 ) {
+            location.href = currentURL + "&iepgType=" + key;
+          } else {
+            location.href = currentURL + "?iepgType=" + key;
+          }
+      } else {
+        iepgSelector.selectedIndex = currentSelectedIepgType;
+      }
+    }
+  }
+
+//--></script>
+  </div><!--/utileListContents-->
+</div><!--/contBlock--><div class="listIndexNum mgT5">
+  <ul>
+            <li class="current">1</li>
+  </ul>
+    13件中　1-13件を表示
+</div><!--/listIndexNum--> <form method="POST" name="form_multi_iepg" action="/multiIepg.tvpid" onSubmit="return MultiIepg.isChecked(this)">
+ <div class="contBlockNB">
+       <div  id="schedule-101072201007051930"></div>
+         <div class="utileList">
+       <h2><a href="/schedule/101072201007051930.action">FAIRY　TAIL　～フェアリーテイル～「楽園ゲーム」[字]</a></h2>
+       <p class="utileListProperty">
+7/5 (月) 19:30 ～ 20:00          (30分) 
+         テレビ東京(Ch.7)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           エルザを生け贄としてゼレフ復活の儀を行おうとするジェラール。彼が名づけた“楽園ゲーム”それは暗殺ギルドの魔導士とナツたちとのバトルロワイヤルだった!
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+            <span class="iepgdigitalIcon">  <a id="iepg-101072201007051930-1" name="iepg-button" href="/iepg.tvpid?id=101072201007051930" class="iepg" title="iEPGデジタル"><div id="iepg-101072201007051930" name="iepg-button">iEPGデジタル</div></a>
+
+          </span>
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY%E3%80%80TAIL%E3%80%80%EF%BD%9E%E3%83%95%E3%82%A7%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%86%E3%82%A4%E3%83%AB%EF%BD%9E" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=101072201007051930&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-101072201007051930-1" title="気になる番組に登録"><div id="clip-101072201007051930">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-400667201007061430"></div>
+         <div class="utileList bl">
+       <h2><a href="/schedule/400667201007061430.action">FAIRY TAIL #34</a></h2>
+       <p class="utileListProperty">
+7/6 (火) 14:30 ～ 15:00          (30分) 
+         AT-X HD!(Ch.667)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #34 ジェラール <BR><BR>(金)8:30/20:30(火)14:30/26:30
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=400667201007061430&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-400667201007061430-2" title="気になる番組に登録"><div id="clip-400667201007061430">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-400729201007061430"></div>
+         <div class="utileList">
+       <h2><a href="/schedule/400729201007061430.action">FAIRY TAIL #34</a></h2>
+       <p class="utileListProperty">
+7/6 (火) 14:30 ～ 15:00          (30分) 
+         アニメシアターＸ（ＡＴ-Ｘ）(Ch.729)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #34 ジェラール<BR><BR>(金)8:30/20:30(火)14:30/26:30<BR><BR>世界中に存在する魔導士ギルド。それは魔導士達に、探し物から魔物討伐まで色々な仕事を仲介してくれる「組合」。
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=400729201007061430&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-400729201007061430-3" title="気になる番組に登録"><div id="clip-400729201007061430">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-500333201007061430"></div>
+         <div class="utileList bl">
+       <h2><a href="/schedule/500333201007061430.action">FAIRY TAIL #34</a></h2>
+       <p class="utileListProperty">
+7/6 (火) 14:30 ～ 15:00          (30分) 
+         アニメシアターX（AT-X)(Ch.333)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #34 ジェラール <BR><BR>(金)8:30/20:30(火)14:30/26:30
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+            <span class="iepgdigitalIcon">  <a id="iepg-500333201007061430-2" name="iepg-button" href="/iepg.tvpid?id=500333201007061430" class="iepg" title="iEPGデジタル"><div id="iepg-500333201007061430" name="iepg-button">iEPGデジタル</div></a>
+
+          </span>
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=500333201007061430&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-500333201007061430-4" title="気になる番組に登録"><div id="clip-500333201007061430">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-400667201007070230"></div>
+         <div class="utileList">
+       <h2><a href="/schedule/400667201007070230.action">FAIRY TAIL #34</a></h2>
+       <p class="utileListProperty">
+7/7 (水) 2:30 ～ 3:00          (30分) 
+         AT-X HD!(Ch.667)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #34 ジェラール <BR><BR>(金)8:30/20:30(火)14:30/26:30
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=400667201007070230&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-400667201007070230-5" title="気になる番組に登録"><div id="clip-400667201007070230">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-400729201007070230"></div>
+         <div class="utileList bl">
+       <h2><a href="/schedule/400729201007070230.action">FAIRY TAIL #34</a></h2>
+       <p class="utileListProperty">
+7/7 (水) 2:30 ～ 3:00          (30分) 
+         アニメシアターＸ（ＡＴ-Ｘ）(Ch.729)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #34 ジェラール<BR><BR>(金)8:30/20:30(火)14:30/26:30<BR><BR>世界中に存在する魔導士ギルド。それは魔導士達に、探し物から魔物討伐まで色々な仕事を仲介してくれる「組合」。
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=400729201007070230&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-400729201007070230-6" title="気になる番組に登録"><div id="clip-400729201007070230">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-500333201007070230"></div>
+         <div class="utileList">
+       <h2><a href="/schedule/500333201007070230.action">FAIRY TAIL #34</a></h2>
+       <p class="utileListProperty">
+7/7 (水) 2:30 ～ 3:00          (30分) 
+         アニメシアターX（AT-X)(Ch.333)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #34 ジェラール <BR><BR>(金)8:30/20:30(火)14:30/26:30
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+            <span class="iepgdigitalIcon">  <a id="iepg-500333201007070230-3" name="iepg-button" href="/iepg.tvpid?id=500333201007070230" class="iepg" title="iEPGデジタル"><div id="iepg-500333201007070230" name="iepg-button">iEPGデジタル</div></a>
+
+          </span>
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=500333201007070230&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-500333201007070230-7" title="気になる番組に登録"><div id="clip-500333201007070230">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-400667201007090830"></div>
+         <div class="utileList bl">
+       <h2><a href="/schedule/400667201007090830.action">FAIRY TAIL #35</a></h2>
+       <p class="utileListProperty">
+7/9 (金) 8:30 ～ 9:00          (30分) 
+         AT-X HD!(Ch.667)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #35 闇の声 <BR><BR>(金)8:30/20:30(火)14:30/26:30
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=400667201007090830&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-400667201007090830-8" title="気になる番組に登録"><div id="clip-400667201007090830">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-400729201007090830"></div>
+         <div class="utileList">
+       <h2><a href="/schedule/400729201007090830.action">FAIRY TAIL #35</a></h2>
+       <p class="utileListProperty">
+7/9 (金) 8:30 ～ 9:00          (30分) 
+         アニメシアターＸ（ＡＴ-Ｘ）(Ch.729)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #35 闇の声<BR><BR>(金)8:30/20:30(火)14:30/26:30<BR><BR>世界中に存在する魔導士ギルド。それは魔導士達に、探し物から魔物討伐まで色々な仕事を仲介してくれる「組合」。
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=400729201007090830&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-400729201007090830-9" title="気になる番組に登録"><div id="clip-400729201007090830">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-500333201007090830"></div>
+         <div class="utileList bl">
+       <h2><a href="/schedule/500333201007090830.action">FAIRY TAIL #35</a></h2>
+       <p class="utileListProperty">
+7/9 (金) 8:30 ～ 9:00          (30分) 
+         アニメシアターX（AT-X)(Ch.333)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #35 闇の声 <BR><BR>(金)8:30/20:30(火)14:30/26:30
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+            <span class="iepgdigitalIcon">  <a id="iepg-500333201007090830-4" name="iepg-button" href="/iepg.tvpid?id=500333201007090830" class="iepg" title="iEPGデジタル"><div id="iepg-500333201007090830" name="iepg-button">iEPGデジタル</div></a>
+
+          </span>
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=500333201007090830&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-500333201007090830-10" title="気になる番組に登録"><div id="clip-500333201007090830">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-400667201007092030"></div>
+         <div class="utileList">
+       <h2><a href="/schedule/400667201007092030.action">FAIRY TAIL #35</a></h2>
+       <p class="utileListProperty">
+7/9 (金) 20:30 ～ 21:00          (30分) 
+         AT-X HD!(Ch.667)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #35 闇の声 <BR><BR>(金)8:30/20:30(火)14:30/26:30
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=400667201007092030&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-400667201007092030-11" title="気になる番組に登録"><div id="clip-400667201007092030">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-400729201007092030"></div>
+         <div class="utileList bl">
+       <h2><a href="/schedule/400729201007092030.action">FAIRY TAIL #35</a></h2>
+       <p class="utileListProperty">
+7/9 (金) 20:30 ～ 21:00          (30分) 
+         アニメシアターＸ（ＡＴ-Ｘ）(Ch.729)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #35 闇の声<BR><BR>(金)8:30/20:30(火)14:30/26:30<BR><BR>世界中に存在する魔導士ギルド。それは魔導士達に、探し物から魔物討伐まで色々な仕事を仲介してくれる「組合」。
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=400729201007092030&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-400729201007092030-12" title="気になる番組に登録"><div id="clip-400729201007092030">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+       <div  id="schedule-500333201007092030"></div>
+         <div class="utileList">
+       <h2><a href="/schedule/500333201007092030.action">FAIRY TAIL #35</a></h2>
+       <p class="utileListProperty">
+7/9 (金) 20:30 ～ 21:00          (30分) 
+         アニメシアターX（AT-X)(Ch.333)
+           <a href="/schedulesBySearch.action?condition.genres[0].id=107000&stationPlatformId=0">アニメ／特撮</a>
+       </p>
+         <div class="utileListDetail">
+           #35 闇の声 <BR><BR>(金)8:30/20:30(火)14:30/26:30
+         </div><!--/utileListDetail-->
+  
+  <div class="utileListIcon">
+            <span class="iepgdigitalIcon">  <a id="iepg-500333201007092030-5" name="iepg-button" href="/iepg.tvpid?id=500333201007092030" class="iepg" title="iEPGデジタル"><div id="iepg-500333201007092030" name="iepg-button">iEPGデジタル</div></a>
+
+          </span>
+        <span class="omakaseIcon"><a href="/m/filterAddingOpened.action?filter.keywords[0].body=FAIRY+TAIL" title="おまかせ!番組サーチを設定">おまかせ</a></span>
+        <span class="kininaruIcon">  <a href="/m/clipAdding.action?id=500333201007092030&origin=%2FschedulesBySearch.action%3FstationPlatformId%3D0%26condition.keyword%3DFairy%2520tail%26submit%3D%258C%259F%258D%25F5" name="clip-button" id="clip-500333201007092030-13" title="気になる番組に登録"><div id="clip-500333201007092030">気になる</div></a>
+</span>
+  </div><!--/utileListIcon-->       </div><!--/utileList-->
+<div class="listIndexNum mgT5">
+  <ul>
+            <li class="current">1</li>
+  </ul>
+    13件中　1-13件を表示
+</div><!--/listIndexNum-->       </div><!--/contBlockNB-->
+  </form><form action="/schedulesBySearch.action" method="GET" name="mainForm">
+<div class="contBlock utileSetting pdB5">
+  <h2 class="basicContTitle">番組を探す</h2>
+  <div class="contBlockInner">
+    <table class="utileSettingTable mgB5">
+    <tr>
+      <th>大ジャンル</th>
+      <td>
+        <script language="javascript">
+          var childGenres = new Array(13);
+          childGenres[0] = new Array();
+          childGenres[0][0] = new Option("選択してください", "-1");
+            childGenres[1] = new Array();
+            childGenres[1][0] = new Option("選択してください", "-1");
+              childGenres[1][1] = new Option("定時・総合", "100100");
+              childGenres[1][2] = new Option("天気", "100101");
+              childGenres[1][3] = new Option("特集・ドキュメント", "100102");
+              childGenres[1][4] = new Option("政治・国会", "100103");
+              childGenres[1][5] = new Option("経済・市況", "100104");
+              childGenres[1][6] = new Option("海外・国際", "100105");
+              childGenres[1][7] = new Option("解説", "100106");
+              childGenres[1][8] = new Option("討論・会談", "100107");
+              childGenres[1][9] = new Option("報道特番", "100108");
+              childGenres[1][10] = new Option("ローカル・地域", "100109");
+              childGenres[1][11] = new Option("交通", "100110");
+              childGenres[1][12] = new Option("その他", "100115");
+            childGenres[2] = new Array();
+            childGenres[2][0] = new Option("選択してください", "-1");
+              childGenres[2][1] = new Option("スポーツニュース", "101100");
+              childGenres[2][2] = new Option("野球", "101101");
+              childGenres[2][3] = new Option("サッカー", "101102");
+              childGenres[2][4] = new Option("ゴルフ", "101103");
+              childGenres[2][5] = new Option("その他の球技", "101104");
+              childGenres[2][6] = new Option("相撲・格闘技", "101105");
+              childGenres[2][7] = new Option("オリンピック・国際大会", "101106");
+              childGenres[2][8] = new Option("マラソン・陸上・水泳", "101107");
+              childGenres[2][9] = new Option("モータースポーツ", "101108");
+              childGenres[2][10] = new Option("マリン・ウィンタースポーツ", "101109");
+              childGenres[2][11] = new Option("競馬・公営競技", "101110");
+              childGenres[2][12] = new Option("その他", "101115");
+            childGenres[3] = new Array();
+            childGenres[3][0] = new Option("選択してください", "-1");
+              childGenres[3][1] = new Option("芸能・ワイドショー", "102100");
+              childGenres[3][2] = new Option("ファッション", "102101");
+              childGenres[3][3] = new Option("暮らし・住まい", "102102");
+              childGenres[3][4] = new Option("健康・医療", "102103");
+              childGenres[3][5] = new Option("ショッピング・通販", "102104");
+              childGenres[3][6] = new Option("グルメ・料理", "102105");
+              childGenres[3][7] = new Option("イベント", "102106");
+              childGenres[3][8] = new Option("番組紹介・お知らせ", "102107");
+              childGenres[3][9] = new Option("その他", "102115");
+            childGenres[4] = new Array();
+            childGenres[4][0] = new Option("選択してください", "-1");
+              childGenres[4][1] = new Option("国内ドラマ", "103100");
+              childGenres[4][2] = new Option("海外ドラマ", "103101");
+              childGenres[4][3] = new Option("時代劇", "103102");
+              childGenres[4][4] = new Option("その他", "103115");
+            childGenres[5] = new Array();
+            childGenres[5][0] = new Option("選択してください", "-1");
+              childGenres[5][1] = new Option("国内ロック・ポップス", "104100");
+              childGenres[5][2] = new Option("海外ロック・ポップス", "104101");
+              childGenres[5][3] = new Option("クラシック・オペラ", "104102");
+              childGenres[5][4] = new Option("ジャズ・フュージョン", "104103");
+              childGenres[5][5] = new Option("歌謡曲・演歌", "104104");
+              childGenres[5][6] = new Option("ライブ・コンサート", "104105");
+              childGenres[5][7] = new Option("ランキング・リクエスト", "104106");
+              childGenres[5][8] = new Option("カラオケ・のど自慢", "104107");
+              childGenres[5][9] = new Option("民謡・邦楽", "104108");
+              childGenres[5][10] = new Option("童謡・キッズ", "104109");
+              childGenres[5][11] = new Option("民族音楽・ワールドミュージック", "104110");
+              childGenres[5][12] = new Option("その他", "104115");
+            childGenres[6] = new Array();
+            childGenres[6][0] = new Option("選択してください", "-1");
+              childGenres[6][1] = new Option("クイズ", "105100");
+              childGenres[6][2] = new Option("ゲーム", "105101");
+              childGenres[6][3] = new Option("トークバラエティ", "105102");
+              childGenres[6][4] = new Option("お笑い・コメディ", "105103");
+              childGenres[6][5] = new Option("音楽バラエティ", "105104");
+              childGenres[6][6] = new Option("旅バラエティ", "105105");
+              childGenres[6][7] = new Option("料理バラエティ", "105106");
+              childGenres[6][8] = new Option("その他", "105115");
+            childGenres[7] = new Array();
+            childGenres[7][0] = new Option("選択してください", "-1");
+              childGenres[7][1] = new Option("洋画", "106100");
+              childGenres[7][2] = new Option("邦画", "106101");
+              childGenres[7][3] = new Option("アニメ", "106102");
+              childGenres[7][4] = new Option("その他", "106115");
+            childGenres[8] = new Array();
+            childGenres[8][0] = new Option("選択してください", "-1");
+              childGenres[8][1] = new Option("国内アニメ", "107100");
+              childGenres[8][2] = new Option("海外アニメ", "107101");
+              childGenres[8][3] = new Option("特撮", "107102");
+              childGenres[8][4] = new Option("その他", "107115");
+            childGenres[9] = new Array();
+            childGenres[9][0] = new Option("選択してください", "-1");
+              childGenres[9][1] = new Option("社会・時事", "108100");
+              childGenres[9][2] = new Option("歴史・紀行", "108101");
+              childGenres[9][3] = new Option("自然・動物・環境", "108102");
+              childGenres[9][4] = new Option("宇宙・科学・医学", "108103");
+              childGenres[9][5] = new Option("カルチャー・伝統文化", "108104");
+              childGenres[9][6] = new Option("文学・文芸", "108105");
+              childGenres[9][7] = new Option("スポーツ", "108106");
+              childGenres[9][8] = new Option("ドキュメンタリー全般", "108107");
+              childGenres[9][9] = new Option("インタビュー・討論", "108108");
+              childGenres[9][10] = new Option("その他", "108115");
+            childGenres[10] = new Array();
+            childGenres[10][0] = new Option("選択してください", "-1");
+              childGenres[10][1] = new Option("現代劇・新劇", "109100");
+              childGenres[10][2] = new Option("ミュージカル", "109101");
+              childGenres[10][3] = new Option("ダンス・バレエ", "109102");
+              childGenres[10][4] = new Option("落語・演芸", "109103");
+              childGenres[10][5] = new Option("歌舞伎・古典", "109104");
+              childGenres[10][6] = new Option("その他", "109115");
+            childGenres[11] = new Array();
+            childGenres[11][0] = new Option("選択してください", "-1");
+              childGenres[11][1] = new Option("旅・釣り・アウトドア", "110100");
+              childGenres[11][2] = new Option("園芸・ペット・手芸", "110101");
+              childGenres[11][3] = new Option("音楽・美術・工芸", "110102");
+              childGenres[11][4] = new Option("囲碁・将棋", "110103");
+              childGenres[11][5] = new Option("麻雀・パチンコ", "110104");
+              childGenres[11][6] = new Option("車・オートバイ", "110105");
+              childGenres[11][7] = new Option("コンピュータ・ＴＶゲーム", "110106");
+              childGenres[11][8] = new Option("会話・語学", "110107");
+              childGenres[11][9] = new Option("幼児・小学生", "110108");
+              childGenres[11][10] = new Option("中学生・高校生", "110109");
+              childGenres[11][11] = new Option("大学生・受験", "110110");
+              childGenres[11][12] = new Option("生涯教育・資格", "110111");
+              childGenres[11][13] = new Option("教育問題", "110112");
+              childGenres[11][14] = new Option("その他", "110115");
+            childGenres[12] = new Array();
+            childGenres[12][0] = new Option("選択してください", "-1");
+              childGenres[12][1] = new Option("高齢者", "111100");
+              childGenres[12][2] = new Option("障害者", "111101");
+              childGenres[12][3] = new Option("社会福祉", "111102");
+              childGenres[12][4] = new Option("ボランティア", "111103");
+              childGenres[12][5] = new Option("手話", "111104");
+              childGenres[12][6] = new Option("文字（字幕）", "111105");
+              childGenres[12][7] = new Option("音声解説", "111106");
+              childGenres[12][8] = new Option("その他", "111115");
+            childGenres[13] = new Array();
+            childGenres[13][0] = new Option("選択してください", "-1");
+              childGenres[13][1] = new Option("その他", "115115");
+          function refleshChildGenres() {
+            var selectedChildGenreId = "";
+            var select = document.mainForm["condition.genres[0].parentId"];
+            var childSelect = select.form["condition.genres[0].childId"];
+            childSelect.length = 0;
+            for (var i = 0; i < childGenres[select.selectedIndex].length; i++) {
+              childSelect.options[i] = childGenres[select.selectedIndex][i];
+              if (selectedChildGenreId == childGenres[select.selectedIndex][i].value) {
+                childSelect.options[i].selected = true;
+              }
+            }
+            return true;
+           }
+        </script>
+<select name="condition.genres[0].parentId" id="condition_genres_0__parentId" onchange="refleshChildGenres()">
+    <option value="-1"
+    >選択してください</option>
+    <option value="100000">ニュース／報道</option>
+    <option value="101000">スポーツ</option>
+    <option value="102000">情報／ワイドショー</option>
+    <option value="103000">ドラマ</option>
+    <option value="104000">音楽</option>
+    <option value="105000">バラエティー</option>
+    <option value="106000">映画</option>
+    <option value="107000">アニメ／特撮</option>
+    <option value="108000">ドキュメンタリー／教養</option>
+    <option value="109000">劇場／公演</option>
+    <option value="110000">趣味／教育</option>
+    <option value="111000">福祉</option>
+    <option value="115000">その他</option>
+
+
+</select>
+      </td>
+      <th>小ジャンル</th>
+      <td>
+        <select name="condition.genres[0].childId">
+          <option value="-1">選択してください</option>
+        </select>
+        <script language="javascript">
+          refleshChildGenres();
+        </script>
+      </td>
+    </tr>
+    <tr>
+      <th>放送波</th>
+      <td>
+<select name="stationPlatformId" id="stationPlatformId">
+    <option value="0" selected="selected">すべての番組</option>
+    <option value="1">地上波</option>
+    <option value="2">BSデジタル</option>
+    <option value="5">スカパー！ｅ２</option>
+    <option value="4">スカパー！</option>
+
+
+</select>
+      </td>
+      <th>キーワード</th>
+      <td><input type="text" name="condition.keyword" value="Fairy tail" id="usr_id2" class="inputTxt"/>
+</td>
+    </tr>
+    </table>
+    <input type="submit" name="submit" class="searchBtnS" value="検索" border="0"  />
+  </div><!--/contBlockInner-->
+</div><!--/contBlock-->
+</form>
+    </div><!--mainColumn-->
+    <div class="subColumn">
+    
+<div class="contBlockNB">
+  <iframe src="http://www.so-net.ne.jp/tv/advertisement/_adSquareSearch.html" allowtransparency="true" frameborder="0" border="0" scrolling="no" width="300" height="250"></iframe>
+</div>
+<!--お気に入りに追加する-->
+<div>
+ <ul>
+<script type="text/javascript"><!--
+if(navigator.userAgent.indexOf("MSIE") != -1){
+ document.write("<li>");
+ document.write("<a href=\"javascript:window.external.AddFavorite('http://tv.so-net.ne.jp/','テレビ番組表【Gガイド.テレビ王国】')\"><img border=\"0\" src=\"http://www.so-net.ne.jp/tv/gtv/img/banner/300x30_okiniiri_off.png\" onmouseover=\"this.src='http://www.so-net.ne.jp/tv/gtv/img/banner/300x30_okiniiri_on.png';\" onmouseout=\"this.src='http://www.so-net.ne.jp/tv/gtv/img/banner/300x30_okiniiri_off.png'\" alt=\"このロゴをクリックするとお気に入りに追加します\" width=\"298\" height=\"30\" /></a><br />");
+ document.write("</li>");
+}else{
+ document.write("<li>");
+ document.write("<a href=\"http://www.so-net.ne.jp/tv/help/gtv/howto/bookmark/index.html\"><img src=\"http://www.so-net.ne.jp/tv/gtv/img/banner/300x30_okiniiri_off.png\" onmouseover=\"this.src='http://www.so-net.ne.jp/tv/gtv/img/banner/300x30_okiniiri_on.png';\" onmouseout=\"this.src='http://www.so-net.ne.jp/tv/gtv/img/banner/300x30_okiniiri_off.png'\" /></a>");
+ document.write("</li>");
+}
+--></script>
+ </ul>
+</div>
+<!--お気に入りに追加する-->
+       <div class="contBlockB1">
+          <h2 class="basicContTitle">ジャンル別番組表</h2>
+          <ul class="contPresetChartList">
+                <li><a href="/s/drama">ドラマ</a><span style="padding-left:5px;">|</span></li>
+                <li><a href="/s/animation">アニメ</a><span style="padding-left:5px;">|</span></li>
+                <li><a href="/s/comedy">お笑い</a><span style="padding-left:5px;">|</span></li>
+                <li><a href="/s/movie">映画</a><span style="padding-left:5px;">|</span></li>
+                <li><a href="/s/science">サイエンス</a><span style="padding-left:5px;">|</span></li>
+                <li><a href="/s/music">音楽</a><span style="padding-left:5px;">|</span></li>
+                <li><a href="/s/sony">ソニー関連番組</a><span style="padding-left:5px;">|</span></li>
+                <li><a href="/s/cooking">料理</a><span style="padding-left:5px;">|</span></li>
+                <li><a href="/s/wcup">W杯番組表</a>&nbsp;<span style="color: red;">NEW</span></li>
+             </ul>
+    	</div>
+<div class="contBlock">
+  <h2 class="basicContTitle">Gガイド.テレビ王国予約ランキング</h2>
+      <h3 class="secondContTitle">2010/07/03</h3>
+      <ul class="contRankListS">
+        <li>
+          <span class="rank1">1.</span>
+          <a href="/schedulesBySearch.action?condition.keyword=%E6%9C%88%E3%81%AE%E6%81%8B%E4%BA%BA%E3%80%9C%EF%BC%AD%EF%BD%8F%EF%BD%8F%EF%BD%8E%E3%80%80%EF%BC%AC%EF%BD%8F%EF%BD%96%EF%BD%85%EF%BD%92%EF%BD%93%E3%80%9C">月の恋人〜Ｍｏｏｎ　Ｌｏｖｅｒｓ〜 </a>
+        </li>
+        <li>
+          <span class="rank2">2.</span>
+          <a href="/schedulesBySearch.action?condition.keyword=%E6%97%A5%E6%9B%9C%E6%B4%8B%E7%94%BB%E5%8A%87%E5%A0%B4">日曜洋画劇場 センター・オブ・ジ・アース</a>
+        </li>
+        <li>
+          <span class="rank3">3.</span>
+          <a href="/schedulesBySearch.action?condition.keyword=%E9%8B%BC%E3%81%AE%E9%8C%AC%E9%87%91%E8%A1%93%E5%B8%AB%E3%80%80%EF%BC%A6%EF%BC%B5%EF%BC%AC%EF%BC%AC%EF%BC%AD%EF%BC%A5%EF%BC%B4%EF%BC%A1%EF%BC%AC%E3%80%80%EF%BC%A1%EF%BC%AC%EF%BC%A3%EF%BC%A8%EF%BC%A5%EF%BC%AD%EF%BC%A9%EF%BC%B3%EF%BC%B4">鋼の錬金術師　ＦＵＬＬＭＥＴＡＬ　ＡＬＣＨＥＭＩＳＴ </a>
+        </li>
+      </ul>
+      <p class="contMoreRead"><a class="linkArrowB" href="/ranking/#futurePopularSchedules">もっと見る</a></p>
+</div>
+    
+    <div class="contBlock">
+      <h2 class="basicContTitle">ドラマクチコミランキング</h2>
+      <h3 class="secondContTitle">2010/07/03</h3>
+      <ul class="contRankListS">
+        <li>
+          <span class="rank1">1.</span>
+          <a href="/drama/ranking/vote.action?id=101200906006">IRIS-アイリス-</a>
+        </li>
+        <li>
+          <span class="rank2">2.</span>
+          <a href="/drama/ranking/vote.action?id=101200906017">怪物くん</a>
+        </li>
+        <li>
+          <span class="rank3">3.</span>
+          <a href="/drama/ranking/vote.action?id=101200906020">ゲゲゲの女房</a>
+        </li>
+      </ul>
+      <p class="contMoreRead"><a class="linkArrowB" href="/drama/ranking/">もっと見る</a></p>
+    </div>
+    <div class="contBlock">
+      <h2 class="basicContTitle">アニメクチコミランキング</h2>
+      <h3 class="secondContTitle">2010/07/03</h3>
+      <ul class="contRankListS">
+        <li>
+          <span class="rank1">1.</span>
+          <a href="/anime/ranking/vote.action?id=102200906004">鋼の錬金術師 FULLMETAL ALCHEMIST</a>
+        </li>
+        <li>
+          <span class="rank2">2.</span>
+          <a href="/anime/ranking/vote.action?id=102200906022">けいおん!!</a>
+        </li>
+        <li>
+          <span class="rank3">3.</span>
+          <a href="/anime/ranking/vote.action?id=102200906019">WORKING!!</a>
+        </li>
+      </ul>
+      <p class="contMoreRead"><a class="linkArrowB" href="/anime/ranking/">もっと見る</a></p>
+    </div>
+    </div><!--subColumn-->
+  </div><!-- container -->
+  <div class="contBlockNB superBanner">
+<iframe src="http://www.so-net.ne.jp/tv/advertisement/_adFooterSearch.html" allowtransparency="true" 
+    frameborder="0" border="0" scrolling="no" width="728" height="90">
+</iframe>
+  </div><!--super-banner-->
+<div class="footer">
+  <div class="innerBox">
+    
+
+
+     <div style="font-size:12px;">協力：<a href="http://www.jcom.co.jp/" target="_blank">J:COM</a>、<a href="http://www.biglobe.ne.jp/" target="_blank">BIGLOBE</a></div>
+
+     <!--
+     <div style="font-size:12px; margin-top: 10px">協力：<a href="http://www.jcom.co.jp/index.html" target="_blank">J:COM</a>、<a href="http://www.biglobe.ne.jp/" target="_blank">BIGLOBE</a></div>
+     -->
+
+    <ul class="subMenuList">
+      <li><a href="http://www.so-net.ne.jp/corporation/privacy/" target="_blank">個人情報保護の取り組み</a><span>‐</span></li>
+      <li> <a href="http://www.so-net.ne.jp/tv/help/gtv/howto/tokusyo/index.html">特定商取引法に基づく表記</a><span>‐</span></li>
+      <li> <a href="http://www.so-net.ne.jp/tv/help/gtv/howto/esc/index.html">免責</a><span>‐</span></li>
+      <li><a href="http://www.so-net.ne.jp/tv/service/comment/form.html">ご意見</a><span>‐</span></li>
+      <li><a href="http://www.so-net.ne.jp/tv/service/map.html">サイトマップ</a><span>‐</span></li>
+      <li><a href="http://www.so-net.ne.jp/tv/help/gtv/">ヘルプ</a><span>‐</span></li>
+      <li><a href="https://www.so-net.ne.jp/tv/myepg/qa2/cgi-bin/index.cgi">お問い合わせ</a><span>‐</span></li>
+      <li><a href="http://www.so-net.ne.jp/tv/help/gtv/howto/env/index.html">推奨環境</a><span>‐</span></li>
+      <li><a href="/">Gガイド.テレビ王国</a></li>
+    </ul>
+    <p class="linkTop"><a class="linkTop" href="#">ページのトップへ</a></p>
+    <p class="copyRight">番組内容、放送時間などが実際の放送内容と異なる場合がございます。</p>
+    <p class="copyRight">番組データ提供元：IPG、角川マーケティング、スカパーＪＳＡＴ、J:COM</p>
+    <p class="copyRight">Gガイド、G-GUIDE、シンジケーテッドGガイド、SYNDICATED G-GUIDE、およびGガイド関連ロゴは、米Gemstar-TV Guide International, Inc.またはその関連会社の日本国内における商標/登録商標です。</p>
+    <p class="copyRight">&copy;1996,2010 So-net Entertainment Corporation&copy;2010 Interactive Program Guide Inc.このホームページに掲載している記事・写真等 あらゆる素材の無断複写・転載を禁じます。</p>
+    <ul class="footLogoList">
+      <li><a href="http://www.ipg.co.jp/" target="_blank"><img src="/tv/digital/img/common_img/f_logo_ipg.jpg" alt="IPG" /></a></li>
+      <li><a href="http://www.so-net.ne.jp/" target="_blank"><img src="/tv/digital/img/common_img/f_logo_sonet.jpg" alt="Sonet" /></a></li>
+    </ul>
+
+  <!-- START Google Analytics -->
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+    _uacct = "UA-1210664-1";
+    urchinTracker();
+  </script>
+
+  <!-- END Google Analytics -->
+
+<!-- SiteCatalyst code version: H.14.
+Copyright 1997-2008 Omniture, Inc. More info available at
+http://www.omniture.com -->
+<script language="JavaScript" src="//www.so-net.ne.jp/omn-js/s_code.js"></script>
+<script language="JavaScript" src="//www.so-net.ne.jp/omn-js/sp/sonysonettv.js"></script>
+  </div>
+  <!--footer-->
+</div>
+<script type="text/javascript" charset="UTF-8" src="/tv/digital/js/select_search.js"></script>
+<script type="text/javascript">
+<!--
+var gSelectSearchBox = new SelectedSearchBox({from: "tv_search", linkTarget: "_blank"});
+gSelectSearchBox.init();
+// -->
+</script>
+</body>
+</html>
